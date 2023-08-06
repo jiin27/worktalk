@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -13,10 +12,11 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import org.sp.worktalk.domain.Employee;
+import org.sp.worktalk.model.EmployeeDAO;
+import org.sp.worktalk.util.DBManager;
 
 //패널하나에 오롯이 한 직원의 정보만 포함한다
 //클릭하면 직원의 상세 페이지로 전환된다.
@@ -42,6 +42,8 @@ public class EmpPanel extends JPanel{
 		p_dname = new JPanel();
 		p_job = new JPanel();
 		p_name = new JPanel();
+		
+		
 		
 		photo.setPreferredSize(new Dimension(30,30));
 		icon.setPreferredSize(new Dimension(30,30));
@@ -80,7 +82,12 @@ public class EmpPanel extends JPanel{
 			public void mouseClicked(MouseEvent e) {
 				//페이지 전환 (혜령이가 만든 상세 페이지 넣어야함)
 				//다른 곳으로 가야할까??
-				System.out.println("혜령이파트~");
+				
+				//System.out.println("지금 선택한 사원번호는 "+employeeDTO.getEmpno());
+				ProfilePage profilePage=(ProfilePage)main.pages[Main.PROFILE];
+				profilePage.emp=employeeDTO; //프로필 페이지에 현재 사원 정보 DTO 전달 
+				profilePage.printInfo(); //화면에 출력 
+				
 				main.showHide(main.PROFILE);
 			}
 		});

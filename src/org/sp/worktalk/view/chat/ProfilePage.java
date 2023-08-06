@@ -10,6 +10,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.sp.worktalk.domain.Employee;
+
 public class ProfilePage extends Page{
 	Main main;
 	JPanel p_main;
@@ -39,6 +41,7 @@ public class ProfilePage extends Page{
 	JPanel p_north;
 	JPanel p_center;
 	JPanel p_south;
+	Employee emp;
 	
 	public ProfilePage(Main main) {
 		this.main = main;
@@ -115,27 +118,24 @@ public class ProfilePage extends Page{
 		p_main.add(p_south,BorderLayout.SOUTH);
 	
 		
-		
+		icon1.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				main.showHide(main.HOME);
+			}
+		});
 
 		icon6.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				main.showHide(main.CHANGEPASS);
 			}
 		});
-		
-		
-		
-
-		
 		this.add(p_main);
 		this.setSize(300,450);
-
-
-		
-		
-
-		
 	}
 	
+	//화면에 1사원의 정보 출력 
+	public void printInfo() {
+		la_team.setText(emp.getDeptDTO().getDname());
+	}
 
 }
