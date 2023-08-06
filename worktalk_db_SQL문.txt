@@ -1,0 +1,171 @@
+--테이블 스페이스 생성
+
+create  tablespace  songpa
+datafile 'C:\oraclexe\app\oracle\oradata\XE/songpa.dbf'  size 5M; 
+--유저생성과권한주기
+
+create  user  songpa
+identified by 1234
+default  tablespace songpa
+quota  unlimited  on songpa;
+
+grant create  table , create sequence , create session to songpa;
+
+
+ 
+------------------------------------------------
+--유저변경후 테이블 생성요망
+
+
+--부서 테이블 생성
+create table dept(
+	deptno number primary key
+	, dname varchar2(20) not null
+);
+--부서는 시퀀스 없음
+--부서 데이터 추가
+insert into dept values(11,'인사부');
+insert into dept values(22,'영업부');
+insert into dept values(33,'마케팅부');
+insert into dept values(44,'회계부');
+insert into dept values(55,'총무부');
+
+
+--상태 테이블 생성
+create table status (
+	status_idx number primary key
+	, icon varchar2(20) not null
+);
+
+--상태 시퀀스 생성
+create sequence seq_status
+increment by 1
+start with 1;
+
+--상태 데이터 추가
+insert into status values (seq_status.nextval,'pause.png');
+insert into status values (seq_status.nextval,'play.png');
+insert into status values (seq_status.nextval,'stop.png');
+insert into status values (seq_status.nextval,'business.png');
+
+
+
+--사원 테이블 생성
+create table employee(
+	empno number primary key
+	, name varchar2(20) not null
+	, job varchar2(20) not null
+	, email varchar2(50) not null
+	, phone number not null
+	, pass varchar2(20) not null
+	, deptno number not null
+	, status_idx number not null
+,constraint fk_dept_employee foreign key (deptno) references dept(deptno)
+,constraint fk_status_employee foreign key (status_idx) references status(status_idx)
+);
+
+--사원 테이블 시퀀스 생성
+create sequence  seq_empno
+increment by 1
+start with 230701;
+
+--사원 테이블 데이터 추가
+insert into employee values(seq_empno.nextval,'황경미','대표','hkm230701@songpawoman.com','1101','230701',11,4);
+insert into employee values(seq_empno.nextval,'민진호','부장','mjh230702@songpawoman.com','2202','230702',22,4);
+insert into employee values(seq_empno.nextval,'손정혜','부장','sjh230703@songpawoman.com','3303','230703',33,4);
+insert into employee values(seq_empno.nextval,'박지인','부장','pji230704@songpawoman.com','4404','230704',44,4);
+insert into employee values(seq_empno.nextval,'최승아','부장','csa230705@songpawoman.com','5505','230705',55,4);
+insert into employee values(seq_empno.nextval,'김현아','팀장','kha230706@songpawoman.com','2206','230706',22,4);
+insert into employee values(seq_empno.nextval,'박지현','팀장','pjh230707@songpawoman.com','3307','230707',33,4);
+insert into employee values(seq_empno.nextval,'송혜령','과장','shr230708@songpawoman.com','4408','230708',44,4);
+insert into employee values(seq_empno.nextval,'홍은실','대리','hes230709@songpawoman.com','2209','230709',22,4);
+insert into employee values(seq_empno.nextval,'정유진','대리','jyj230710@songpawoman.com','3310','230710',33,4);
+insert into employee values(seq_empno.nextval,'변민희','대리','bmh230711@songpawoman.com','4411','230711',44,4);
+insert into employee values(seq_empno.nextval,'윤지현','대리','ljh230712@songpawoman.com','5512','230712',55,4);
+insert into employee values(seq_empno.nextval,'김다래','사원','ljh230713@songpawoman.com','2213','230713',22,4);
+insert into employee values(seq_empno.nextval,'조수빈','사원','kdr230714@songpawoman.com','3314','230714',33,4);
+insert into employee values(seq_empno.nextval,'이수지','사원','lsj230715@songpawoman.com','4415','230715',44,4);
+insert into employee values(seq_empno.nextval,'주현영','사원','jhy230716@songpawoman.com','5516','230716',55,4);
+insert into employee values(seq_empno.nextval,'김아영','사원','kay230717@songpawoman.com','4417','230717',44,4);
+insert into employee values(seq_empno.nextval,'윤가이','인턴','ygy230718@songpawoman.com','3318','230718',33,4);
+
+--스케줄 테이블 생성
+create table schedule (
+	schedule_idx number primary key
+	, yy number not null
+	, mm number not null
+	, dd number not null
+	, empno number not null
+,constraint fk_employee_schedule foreign key (empno) references employee(empno)
+);
+
+--스케줄 시퀀스 생성
+create sequence seq_schedule_idx
+increment by 1
+start with 1;
+--스케줄 데이터 추가 없음 DAO 로만 추가할 예정임
+
+--플랜 테이블 생성
+create table plan (
+	plan_idx number primary key
+	, time varchar2(20)
+	, title varchar2(50)
+	, detail clob
+	, filename varchar2(40)
+	, imagename varchar2(40)
+	, schedule_idx number
+	, constraint fk_schedule_plan foreign key (schedule_idx) references schedule(schedule_idx) 
+) ;
+
+
+create sequence seq_plan_idx
+increment by 1
+start with 1;
+
+
+--채팅 프로그램 DB
+--1) 채팅방 목록 테이블
+create table chatroom(
+	chatroom_idx number primary key
+	, chatroom_name varchar2(30) 
+	, lastmessage CLOB
+);
+
+--채팅방 목록 시퀀스 생성
+create sequence seq_chatroom
+increment by 1
+start with 1;
+
+
+--2) room_mate 테이블 생성(채팅 방마다 어떤 사원 있는지 정보 들어있는)
+create table room_mate(
+	room_mate_idx number primary key
+	, chatroom_idx number
+	, empno number
+	, constraint fk_chatroom_room_mate foreign key(chatroom_idx) references chatroom(chatroom_idx)
+	, constraint fk_employee_room_mate foreign key(empno) references employee(empno)
+);
+
+--room_mate 시퀀스 생성()
+create sequence seq_room_mate
+increment by 1
+start with 1;
+
+
+--3) message 테이블 생성
+create table message(
+	message_idx number primary key
+	, room_mate_idx number
+	, msg CLOB
+	, time date default sysdate not null
+	, constraint fk_room_mate_message foreign key(room_mate_idx) references room_mate(room_mate_idx)
+);
+
+--message 시퀀스 생성
+create sequence seq_message
+increment by 1
+start with 1;
+
+
+
+
