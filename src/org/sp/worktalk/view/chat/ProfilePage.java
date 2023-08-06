@@ -3,16 +3,16 @@ package org.sp.worktalk.view.chat;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.sp.worktalk.domain.Status;
-
-public class ProfilePage extends JFrame{
-JPanel p_main;
+public class ProfilePage extends Page{
+	Main main;
+	JPanel p_main;
 	
 	ImageIcon la_exit;
 	JLabel icon1;
@@ -40,7 +40,8 @@ JPanel p_main;
 	JPanel p_center;
 	JPanel p_south;
 	
-	public ProfilePage() {
+	public ProfilePage(Main main) {
+		this.main = main;
 		p_main=new JPanel();
 		la_exit=new ImageIcon("res/back.png");
 		icon1=new JLabel(la_exit);
@@ -115,19 +116,26 @@ JPanel p_main;
 	
 		
 		
+
+		icon6.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				main.showHide(main.CHANGEPASS);
+			}
+		});
+		
+		
+		
+
+		
 		this.add(p_main);
 		this.setSize(300,450);
-		this.setVisible(true);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setLocationRelativeTo(null);
+
+
 		
-		this.setResizable(true);
 		
-		this.getContentPane().setLayout(null);
+
 		
 	}
 	
-	public static void main(String[] args) {
-		new ProfilePage();
-	}
+
 }
