@@ -36,4 +36,8 @@ public class ScheduleDAO {
 		}
 		
 	}
+	//버튼을 누르면 입력된 정보를 토대로 쿼리문이 실행된다.
+	public void AddPlan() {
+		
+	}
 }
