@@ -43,7 +43,7 @@ public class Main extends JFrame{
 		setTitle("Worltalk");
 		setLocation(1050,200);
 		setVisible(true);
-		//setResizable(false); //디자인 확인용으로 잠시 막아둠
+		setResizable(false); 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		showHide(LOGIN); //디자인확인용으로 잠시 막아둠
 		
