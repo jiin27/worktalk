@@ -23,6 +23,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import org.sp.worktalk.chat.server.ChatServer;
+
 public class ChatRoomPage extends JFrame{
 	JPanel p_main; //채팅방 모든 구성요소 담길 패널
 		
@@ -65,7 +67,8 @@ public class ChatRoomPage extends JFrame{
 	
 	Socket socket;
 	ChatThread cht;
-
+	
+	ChatServer chatServer;
 	
 	public ChatRoomPage() {
 		p_main = new JPanel();
@@ -205,7 +208,22 @@ public class ChatRoomPage extends JFrame{
 				}
 			}
 		});
+		
+		la_send.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				send();
+			}
+		});
 	}	
+	
+	public void connect() {
+		//chatServer 포트 번호 가져오기
+		socket = new Socket();
+		
+		//채팅용 쓰레스 생성
+		cht = new ChatThread(this);
+		cht.start();
+	}
 	
 	public void send() {
 		String msg=t_input.getText();
@@ -214,7 +232,7 @@ public class ChatRoomPage extends JFrame{
 		t_input.setText("");
 	}
 	
-	public void createMSGPanel() {
+	public void createMSGLabel() {
 		la_msg.setText(getTitle());
 	}
 	
