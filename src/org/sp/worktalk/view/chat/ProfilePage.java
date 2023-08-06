@@ -43,6 +43,8 @@ public class ProfilePage extends Page{
 	JPanel p_south;
 	Employee emp;
 	
+	ChatRoomPage chatRoomPage;
+	
 	public ProfilePage(Main main) {
 		this.main = main;
 		p_main=new JPanel();
@@ -124,6 +126,18 @@ public class ProfilePage extends Page{
 			}
 		});
 
+		icon3.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				new ChatRoomPage();
+			}
+		});
+		
+		icon5.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				main.showHide(main.SCHEDULE);
+			}
+		});
+		
 		icon6.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				main.showHide(main.CHANGEPASS);
@@ -136,6 +150,10 @@ public class ProfilePage extends Page{
 	//화면에 1사원의 정보 출력 
 	public void printInfo() {
 		la_team.setText(emp.getDeptDTO().getDname());
+		la_name.setText(emp.getName());
+		la_empno.setText(emp.getJob());
+		la_empnoInfo.setText(Integer.toString(emp.getEmpno()));
+		la_emailInfo.setText(emp.getEmail());
 	}
 
 }

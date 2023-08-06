@@ -18,18 +18,20 @@ public class Main extends JFrame{
 	public static final int SCHEDULEADD = 4;
 	public static final int PROFILE = 5;
 	
+	
 	public static Employee employeeDTO; //처음에는 널이지만 로그인 후에는 계속 접속한 한명의  유저의 정보만 담고있다
 	
 
 	
 	public Main() {
-		pages = new Page[6];
+		pages = new Page[7];
 		pages[0] = new LoginPage(this);
 		pages[1] = new ChangePassPage(this);
 		pages[2] = new HomePage(this);
 		pages[3] = new ScheduleHomePage(this);
 		pages[4] = new ScheduleAddPage(this);
 		pages[5] = new ProfilePage(this);
+	
 
 		setLayout(new FlowLayout());
 		for(int i=0;i<pages.length;i++) {
