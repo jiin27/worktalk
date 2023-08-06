@@ -1,4 +1,4 @@
-package org.sp.projectChatting.Model;
+package org.sp.projectChatting.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

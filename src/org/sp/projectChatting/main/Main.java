@@ -5,7 +5,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
 
-import org.sp.projectChatting.DTO.EmployeeDTO;
+import org.sp.projectChatting.dto.EmployeeDTO;
 import org.sp.projectChatting.schedule.ScheduleAddPage;
 import org.sp.projectChatting.schedule.ScheduleHomePage;
 

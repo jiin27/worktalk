@@ -1,4 +1,4 @@
-package org.sp.projectChatting.DTO;
+package org.sp.projectChatting.dto;
 
 //한직원의 스케줄 정보를 가지고 있는 DTO
 public class ScheduleDTO {

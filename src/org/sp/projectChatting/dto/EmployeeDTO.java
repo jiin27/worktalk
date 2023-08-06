@@ -1,4 +1,4 @@
-package org.sp.projectChatting.DTO;
+package org.sp.projectChatting.dto;
 
 
 //사원의 정보만을 담는 DTO

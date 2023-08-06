@@ -1,4 +1,4 @@
-package org.sp.projectChatting.DTO;
+package org.sp.projectChatting.dto;
 
 public class StatusDTO {
 	private int status_idx;

@@ -17,8 +17,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
-import org.sp.projectChatting.DTO.EmployeeDTO;
-import org.sp.projectChatting.Model.EmployeeDAO;
+import org.sp.projectChatting.dto.EmployeeDTO;
+import org.sp.projectChatting.model.EmployeeDAO;
 import org.sp.projectChatting.util.DBManager;
 
 public class ChangePassPage extends Page {

@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.sp.projectChatting.DTO.DeptDTO;
+import org.sp.projectChatting.dto.DeptDTO;
 
 //부서이름을 가지고 있는 네이바패널 클릭하면 하단의 리스트 배널이 변환된다
 public class NaviPanel extends JPanel{

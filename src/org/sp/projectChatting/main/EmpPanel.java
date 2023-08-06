@@ -16,7 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import org.sp.projectChatting.DTO.EmployeeDTO;
+import org.sp.projectChatting.dto.EmployeeDTO;
 
 //패널하나에 오롯이 한 직원의 정보만 포함한다
 //클릭하면 직원의 상세 페이지로 전환된다.

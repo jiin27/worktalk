@@ -1,4 +1,4 @@
-package org.sp.projectChatting.Model;
+package org.sp.projectChatting.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,8 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.sp.projectChatting.DTO.DeptDTO;
-import org.sp.projectChatting.DTO.EmployeeDTO;
+import org.sp.projectChatting.dto.DeptDTO;
+import org.sp.projectChatting.dto.EmployeeDTO;
 import org.sp.projectChatting.util.DBManager;
 
 //오직 비밀번호 교체를 위한 

@@ -1,4 +1,4 @@
-package org.sp.projectChatting.DTO;
+package org.sp.projectChatting.dto;
 
 public class DeptDTO {
 	private int deptno;

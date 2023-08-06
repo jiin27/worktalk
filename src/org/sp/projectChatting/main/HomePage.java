@@ -18,10 +18,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import org.sp.projectChatting.DTO.DeptDTO;
-import org.sp.projectChatting.DTO.EmployeeDTO;
-import org.sp.projectChatting.Model.DeptDAO;
-import org.sp.projectChatting.Model.EmployeeDAO;
+import org.sp.projectChatting.dto.DeptDTO;
+import org.sp.projectChatting.dto.EmployeeDTO;
+import org.sp.projectChatting.model.DeptDAO;
+import org.sp.projectChatting.model.EmployeeDAO;
 import org.sp.projectChatting.schedule.ScheduleHomePage;
 import org.sp.projectChatting.util.DBManager;
 
