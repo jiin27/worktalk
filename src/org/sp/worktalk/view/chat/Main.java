@@ -20,8 +20,6 @@ public class Main extends JFrame{
 	
 	public static Employee employeeDTO; //처음에는 널이지만 로그인 후에는 계속 접속한 한명의  유저의 정보만 담고있다
 	
-
-	
 	public Main() {
 		pages = new Page[6];
 		pages[0] = new LoginPage(this);
@@ -36,9 +34,7 @@ public class Main extends JFrame{
 			this.add(pages[i]);
 		
 		}
-		
-		
-		
+
 		setSize(new Dimension(300,500));
 		setTitle("Worltalk");
 		setLocation(1050,200);

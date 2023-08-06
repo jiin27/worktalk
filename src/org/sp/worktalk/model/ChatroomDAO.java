@@ -2,6 +2,7 @@ package org.sp.worktalk.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.sp.worktalk.domain.Chatroom;
@@ -25,7 +26,8 @@ public class ChatroomDAO {
 		
 		StringBuilder sb=new StringBuilder();
 		sb.append("insert into chatroom(chatroom_idx, chatroom_name, lastmessage)");
-		sb.append(" values(seq_chatroom.nextval, ?, ?)"); //chatroom_name: 접속했을 때, 접속자 이름 넘겨 받기?
+		sb.append(" values(seq_chatroom.nextval, ?, ?)");
+		//employee.empno 
 		
 		try {
 			pstmt=con.prepareStatement(sb.toString());
@@ -35,11 +37,23 @@ public class ChatroomDAO {
 			result=pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			dbManager.release(con, pstmt);
 		}
 		
 		return result;
+	}
+	
+	public void selectAllChatroom() {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		Chatroom dto=null;
+		
+		con=dbManager.connect();
+		
+		//String sql="select * from where chatroom_idx=?"; chat
 	}
 }
 

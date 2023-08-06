@@ -2,6 +2,7 @@ package org.sp.worktalk.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.sp.worktalk.domain.Message;
@@ -41,5 +42,36 @@ public class MessageDAO {
 			dbManager.release(con, pstmt);
 		}
 		return result;
+	}
+	
+	public Message selectAllMessage(Message message) {
+		Connection con=null;
+		PreparedStatement pstmt = null;
+		ResultSet rs=null;
+		Message dto=null;
+		
+		con=dbManager.connect();
+		
+		String sql="select * from message where room_mate_idx = ?";
+		//select r.empno, m.msg, m.time from room_mate r, message m, employee e where r.room_mate_idx=m.room_mate_idx;
+		
+		try {
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, message.getRoom_mate_idx()); //
+			
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				dto = new Message();
+				dto.setMessage_idx(rs.getInt("message_idx"));
+				dto.setRoom_mate_idx(rs.getInt("room_mate_idx"));
+				dto.setMsg(rs.getString("msg"));
+				dto.setTime(rs.getString("time"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			dbManager.release(con, pstmt, rs);
+		}
+		return dto;
 	}
 }

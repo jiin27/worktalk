@@ -11,6 +11,7 @@ import org.sp.worktalk.util.DBManager;
 public class ScheduleDAO {
 	DBManager dbManager;
 	
+	//insert() 메서드 넣기
 	
 	//한직원의 스케줄 정보를 모두 불러오는메서드
 	public void selectALL(DBManager dbManager) {

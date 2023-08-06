@@ -7,6 +7,7 @@ public class Message {
 	private int room_mate_idx;
 	private String msg;
 	private String time;
+	private Message message;
 	
 	public int getMessage_idx() {
 		return message_idx;
@@ -32,7 +33,14 @@ public class Message {
 	public void setTime(String time) {
 		this.time = time;
 	}
+	public Message getMessage() {
+		return message;
+	}
+	public void setMessage(Message message) {
+		this.message = message;
+	}
 
+	
 	
 	
 	
