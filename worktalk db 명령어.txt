@@ -1,0 +1,81 @@
+■ system으로 로그인해서 
+create  tablespace  worktalk
+datafile 'C:\oraclexe\app\oracle\oradata\XE/worktalk.dbf'  size 5M; 
+
+create  user  boss
+identified by 1234
+default  tablespace worktalk
+quota  unlimited  on worktalk;
+
+grant create  table , create sequence , create session to boss; 
+
+■ boss 으로 로그인해서  (  conn  boss/1234  )
+ 
+create table dept(
+deptno number primary key
+, deptname varchar2(30) not null
+);
+
+insert into dept (deptno, deptname) values (1111, 'salesteam');
+insert into dept (deptno, deptname) values (2222, 'budgetteam');
+insert into dept (deptno, deptname) values (3333, 'planningteam');
+insert into dept (deptno, deptname) values (4444, 'designteam');
+insert into dept (deptno, deptname) values (5555, 'marketingteam');
+
+
+
+create table job(
+job_idx number primary key
+, jobname varchar2(20)
+);
+
+create sequence seq_job
+increment by 1
+start with 1;
+
+insert into job(job_idx, jobname) values (seq_job.nextval, 'ceo');
+insert into job(job_idx, jobname) values (seq_job.nextval, 'executivedirector');
+insert into job(job_idx, jobname) values (seq_job.nextval, 'head');
+insert into job(job_idx, jobname) values (seq_job.nextval, 'manager');
+insert into job(job_idx, jobname) values (seq_job.nextval, 'staff');
+
+
+
+
+ create  table  emp(
+     empno  number  primary key 
+   , name varchar2(20) not null
+   , pass varchar2(20) not null
+   , email varchar2(50), phone varchar2(20), deptno number, job_idx number, hiredate date
+,constraint fk_dept_emp foreign key (deptno) references dept(deptno)
+,constraint fk_job_emp foreign key (job_idx) references job(job_idx)
+);
+
+create sequence  seq_empno
+increment by 1
+start with 23070;
+
+insert into emp(empno, name, pass, email, phone, deptno, job_idx, hiredate) values(seq_empno.nextval, 'parkjiin', '23070', 'pji@nave.com', '02-041-3333', 1111,3, '23/07/22' );
+insert into emp(empno, name, pass, email, phone, deptno, job_idx, hiredate) values(seq_empno.nextval, 'songhyeryeong', '23071', 'shr@nave.com', '02-041-2222', 2222,4, '21/07/23' );
+insert into emp(empno, name, pass, email, phone, deptno, job_idx, hiredate) values(seq_empno.nextval, 'hongeunsil', '23072', 'hes@nave.com', '02-041-1111', 3333,5, '20/07/21' );
+
+
+commit;
+
+"insert  금지"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
