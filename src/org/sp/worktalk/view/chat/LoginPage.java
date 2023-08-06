@@ -34,7 +34,7 @@ public class LoginPage extends Page {
 	JTextField txt_id;
 	JPasswordField pass;
 	JButton bt_login;
-	JLabel la_passChage;
+
 	
 	Main main;
 	//DriverManager보유
@@ -59,9 +59,8 @@ public class LoginPage extends Page {
 		la_id = new JLabel("ID");
 		la_pass = new JLabel("PW");
 		txt_id = new JTextField("hes230709@songpawoman.com");
-		pass = new JPasswordField("1234");
+		pass = new JPasswordField("230709");
 		bt_login = new JButton("Login");
-		la_passChage = new JLabel("비밀번호 변경");
 		dbManager = new DBManager();
 		employeeDAO = new EmployeeDAO(dbManager,main);
 
@@ -114,7 +113,6 @@ public class LoginPage extends Page {
 		p_center.add(pass);
 		p_center.add(bt_login);
 		
-		p_south.add(la_passChage);
 		
 		//페널을 페이지에 붙이기
 		p_main.add(p_north,BorderLayout.NORTH);
@@ -133,13 +131,7 @@ public class LoginPage extends Page {
 			}
 		});
 		
-		la_passChage.addMouseListener(new MouseAdapter() {
-			//라벨을 누르면 비밀번호 변경 페이지로 전환된다
-			public void mouseClicked(MouseEvent e) {
-				main.showHide(main.CHANGEPASS);
-			}
-			
-		});
+
 		
 	}
 

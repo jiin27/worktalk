@@ -76,22 +76,16 @@ public class EmpPanel extends JPanel{
 		setBackground(new Color(230,242,223));
 		
 		
-		/*addMouseListener(new MouseAdapter() {
+		addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				//페이지 전환 (혜령이가 만든 상세 페이지 넣어야함)
 				//다른 곳으로 가야할까??
 				System.out.println("혜령이파트~");
-			}
-		});*/
-		
-		photo.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				System.out.println("클릭");
-				//ChangePassPage changePassPage= (ChangePassPage)main.pages[main.CHANGEPASS];
-				main.showHide(main.CHANGEPASS);
-			
+				main.showHide(main.PROFILE);
 			}
 		});
+		
+
 	}
 	
 	public void createIcon() {
