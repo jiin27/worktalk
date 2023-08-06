@@ -16,17 +16,20 @@ public class Main extends JFrame{
 	public static final int HOME = 2;
 	public static final int SCHEDULE = 3;
 	public static final int SCHEDULEADD = 4;
+	public static final int PROFILE = 5;
+	
 	public static Employee employeeDTO; //처음에는 널이지만 로그인 후에는 계속 접속한 한명의  유저의 정보만 담고있다
 	
 
 	
 	public Main() {
-		pages = new Page[5];
+		pages = new Page[6];
 		pages[0] = new LoginPage(this);
 		pages[1] = new ChangePassPage(this);
 		pages[2] = new HomePage(this);
 		pages[3] = new ScheduleHomePage(this);
-		pages[4] = new ScheduleAddPage();
+		pages[4] = new ScheduleAddPage(this);
+		pages[5] = new ProfilePage(this);
 
 		setLayout(new FlowLayout());
 		for(int i=0;i<pages.length;i++) {
@@ -40,7 +43,7 @@ public class Main extends JFrame{
 		setTitle("Worltalk");
 		setLocation(1050,200);
 		setVisible(true);
-		//setResizable(false); //디자인 확인용으로 잠시 막아둠
+		setResizable(false); 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		showHide(LOGIN); //디자인확인용으로 잠시 막아둠
 		

@@ -55,6 +55,7 @@ public class CalendarFrame extends JFrame{
 		for(int i=8;i<20;i++) {
 			box.addItem(i+" :00");
 		}
+		System.out.println();
 		la_selecteDate = new JLabel("날짜와 시간을 선택해 주세요");
 		bt_regist = new JButton("등록");
 		cal = Calendar.getInstance(); //현재날짜디폴트로 객체 생성됨
@@ -229,6 +230,12 @@ public class CalendarFrame extends JFrame{
 				}
 			}
 		}
+	}
+	
+	//유저가 선택한 날짜가 하단 텍스트 필드에 들어가야한다
+	public void setDate() {
+		System.out.println();
+		la_selecteDate.setText("");
 	}
 }
 

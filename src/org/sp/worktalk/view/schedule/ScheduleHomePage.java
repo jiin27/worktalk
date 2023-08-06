@@ -20,7 +20,7 @@ public class ScheduleHomePage extends Page{
 	JPanel p_center; // 모든 컴포넌트가 들어간 패널
 	JScrollPane scroll;
 	JLabel la_name; //부서이름과 직원이름표기
-	JButton bt_add; //누르면 스케줄추가창으로 화면전환
+	JButton bt_add, bt_back; //누르면 스케줄추가창으로 화면전환
 	PlanPanel[] plans;
 	
 	
@@ -35,6 +35,7 @@ public class ScheduleHomePage extends Page{
 		scroll = new JScrollPane(p_center);
 		la_name = new JLabel("회계 1팀 박지인");
 		bt_add = new JButton("+"); //이미지로대체해야함
+		bt_back = new JButton("x"); //이미지로대체해야함
 		
 		
 		
@@ -45,8 +46,9 @@ public class ScheduleHomePage extends Page{
 		p_north.setPreferredSize(new Dimension(250,50));
 		p_center.setPreferredSize(new Dimension(250,1000));
 		scroll.setPreferredSize(new Dimension(250,370));
-		la_name.setPreferredSize(new Dimension(210,40));
-		bt_add.setPreferredSize(new Dimension(30,30));
+		la_name.setPreferredSize(new Dimension(150,40));
+		
+
 		
 		
 		p_main.setBackground(Color.WHITE);
@@ -57,6 +59,7 @@ public class ScheduleHomePage extends Page{
 		//붙이기
 		p_north.add(la_name);
 		p_north.add(bt_add);
+		p_north.add(bt_back);
 		p_main.add(p_north);
 		p_main.add(scroll);
 		
@@ -71,11 +74,18 @@ public class ScheduleHomePage extends Page{
 		//여기까지 while(rs.next())문
 		
 		add(p_main);
+
 		
 		//버튼에 화면전환 기능 넣기
 		bt_add.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("누르면 화면전환");
+				main.showHide(main.SCHEDULEADD);
+				
+			}
+		});
+		bt_back.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				main.showHide(main.HOME);
 			}
 		});
 		
@@ -85,10 +95,13 @@ public class ScheduleHomePage extends Page{
 	}
 	
 
+	
 	public void showUser() {
 		//현재 접속한 유저의 부서 지급 이름 순서로 나열해야한다.
-		System.out.println("접근근 테스트 "+main.employeeDTO.getName());
-		la_name.setText(main.employeeDTO.getName());
+		String deptname = main.employeeDTO.getDeptDTO().getDname();
+		String job = main.employeeDTO.getJob();
+		String name = main.employeeDTO.getName();
+		la_name.setText(deptname+" "+job+" "+name);
 	}
 	
 }

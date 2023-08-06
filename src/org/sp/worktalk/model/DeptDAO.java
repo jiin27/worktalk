@@ -34,9 +34,7 @@ public class DeptDAO {
 				deptDTO.setDeptno(rs.getInt("deptno"));
 				deptDTO.setDname(rs.getString("dname"));
 				deptList.add(deptDTO);
-				
-				System.out.println(rs.getInt("deptno"));
-				System.out.println(rs.getString("dname"));
+
 
 			}
 		} catch (SQLException e) {

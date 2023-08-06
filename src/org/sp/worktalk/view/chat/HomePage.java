@@ -23,6 +23,7 @@ import org.sp.worktalk.domain.Employee;
 import org.sp.worktalk.model.DeptDAO;
 import org.sp.worktalk.model.EmployeeDAO;
 import org.sp.worktalk.util.DBManager;
+import org.sp.worktalk.view.schedule.ScheduleAddPage;
 import org.sp.worktalk.view.schedule.ScheduleHomePage;
 
 public class HomePage extends Page{
@@ -135,7 +136,9 @@ public class HomePage extends Page{
 				main.showHide(main.SCHEDULE);
 				//메인의 페이지스 중에 스케줄 페이지의 showUser()
 				ScheduleHomePage scheduleHomePage=(ScheduleHomePage)main.pages[Main.SCHEDULE];
+				ScheduleAddPage scheduleAddPage=(ScheduleAddPage)main.pages[Main.SCHEDULEADD];
 				scheduleHomePage.showUser();
+				scheduleAddPage.showUser();
 			}
 		});
 		
@@ -146,7 +149,7 @@ public class HomePage extends Page{
 			}
 		});
 		
-		createEmpList(33); //33번 부서 디폴트값으로 정함 
+		createEmpList(33); //
 		createNaviPanel();
 	}
 
