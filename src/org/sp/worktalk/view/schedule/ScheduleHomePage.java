@@ -82,6 +82,7 @@ public class ScheduleHomePage extends Page{
 		bt_add.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				main.showHide(main.SCHEDULEADD);
+				
 			}
 		});
 		bt_back.addMouseListener(new MouseAdapter() {

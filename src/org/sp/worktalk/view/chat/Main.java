@@ -24,6 +24,7 @@ public class Main extends JFrame{
 	
 	
 	public Main() {
+		
 		pages = new Page[6];
 		pages[0] = new LoginPage(this);
 		pages[1] = new ChangePassPage(this);
@@ -41,14 +42,12 @@ public class Main extends JFrame{
 			this.add(pages[i]);
 		
 		}
-		
-		
-		
+
 		setSize(new Dimension(300,500));
 		setTitle("Worltalk");
 		setLocation(1050,200);
 		setVisible(true);
-		//setResizable(false); //디자인 확인용으로 잠시 막아둠
+		setResizable(false); 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		showHide(LOGIN); //디자인확인용으로 잠시 막아둠
 		
