@@ -23,6 +23,7 @@ import org.sp.worktalk.domain.Employee;
 import org.sp.worktalk.model.DeptDAO;
 import org.sp.worktalk.model.EmployeeDAO;
 import org.sp.worktalk.util.DBManager;
+import org.sp.worktalk.util.ImageUtil;
 import org.sp.worktalk.view.schedule.ScheduleHomePage;
 
 public class HomePage extends Page{
@@ -151,21 +152,8 @@ public class HomePage extends Page{
 	}
 
 	
-	public void createIcon() {
-		try {
-			BufferedImage buffImg = ImageIO.read(new File("res/search.png"));
-			Image image = buffImg;
-			image = image.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-			la_search = new JLabel(new ImageIcon(image));
-			//그외 아이콘들 추가로 만들면 됨
-			
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
+	public void createIcon() {		
+		la_search = new JLabel(new ImageIcon(ImageUtil.getImage("res/search.png", 30, 30)));
 	}
 	
 	

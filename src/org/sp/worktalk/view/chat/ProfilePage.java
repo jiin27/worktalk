@@ -66,9 +66,9 @@ public class ProfilePage extends Page{
 		la_email=new JLabel("이메일",JLabel.CENTER);
 		la_emailInfo=new JLabel("dunkin14@sp.or.kr",JLabel.RIGHT);
 		
-		chat=new ImageIcon("res/talk.png");
+		chat=new ImageIcon(ImageUtil.getImage("res/talk.png", 50, 50));
 		icon4=new JLabel(chat);
-		schedule=new ImageIcon("res/calendar.png");
+		schedule=new ImageIcon(ImageUtil.getImage("res/calendar.png", 50, 50));
 		icon5=new JLabel(schedule);
 		password=new ImageIcon("res/lock.png"); 
 		icon6=new JLabel(password);

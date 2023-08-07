@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import org.sp.worktalk.domain.Employee;
 import org.sp.worktalk.model.EmployeeDAO;
 import org.sp.worktalk.util.DBManager;
+import org.sp.worktalk.util.ImageUtil;
 
 //패널하나에 오롯이 한 직원의 정보만 포함한다
 //클릭하면 직원의 상세 페이지로 전환된다.
@@ -96,25 +97,10 @@ public class EmpPanel extends JPanel{
 	}
 	
 	public void createIcon() {
-			BufferedImage buffImg;
-			BufferedImage buffImg_icon;
-			try {
-				buffImg = ImageIO.read(new File("res/avatar.png"));
-				buffImg_icon = ImageIO.read(new File("res/pause.png"));
-				
-				Image image = buffImg;
-				Image image_icon = buffImg_icon;
-				
-				image = image.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-				image_icon = image_icon.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-				
-				photo = new JLabel(new ImageIcon(image));
-				icon = new JLabel(new ImageIcon(image_icon));
-
-			} catch (IOException e) {
-
-				e.printStackTrace();
-			}
+			
+			
+			photo = new JLabel(new ImageIcon(ImageUtil.getImage("res/avatar.png", 30, 30)));
+			icon = new JLabel(new ImageIcon(ImageUtil.getImage("res/pause.png", 30, 30)));
 	}
 	
 	public void setTitle(String dname, String job, String name) {

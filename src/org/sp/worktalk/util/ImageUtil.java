@@ -15,7 +15,7 @@ public class ImageUtil {
 		Image image=null;
 		
 		try {
-			BufferedImage buffImg = ImageIO.read(ClassLoader.getSystemResource("res/"+filename));
+			BufferedImage buffImg = ImageIO.read(ClassLoader.getSystemResource(filename));
 			image = buffImg.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -28,7 +28,7 @@ public class ImageUtil {
 		
 		for(int i=0;i<filename.length;i++) {
 			try {
-				BufferedImage buffImg = ImageIO.read(ClassLoader.getSystemResource("res/"+filename[i]));
+				BufferedImage buffImg = ImageIO.read(ClassLoader.getSystemResource(filename[i]));
 				imageList.add(buffImg.getScaledInstance(width, height, Image.SCALE_SMOOTH));
 			} catch (IOException e) {
 				e.printStackTrace();
