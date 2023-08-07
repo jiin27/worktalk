@@ -70,7 +70,7 @@ public class ProfilePage extends Page{
 		icon4=new JLabel(chat);
 		schedule=new ImageIcon(ImageUtil.getImage("res/calendar.png", 50, 50));
 		icon5=new JLabel(schedule);
-		password=new ImageIcon("res/lock.png"); 
+		password=new ImageIcon(ImageUtil.getImage("res/lock.png", 50, 50)); 
 		icon6=new JLabel(password);
 		
 		p_north=new JPanel();
