@@ -135,7 +135,7 @@ public class HomePage extends Page{
 				main.showHide(main.SCHEDULE);
 				//메인의 페이지스 중에 스케줄 페이지의 showUser()
 				ScheduleHomePage scheduleHomePage=(ScheduleHomePage)main.pages[Main.SCHEDULE];
-				scheduleHomePage.showUser();
+				scheduleHomePage.showUser(main.employeeDTO);
 			}
 		});
 		

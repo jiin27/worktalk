@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import org.sp.worktalk.domain.Employee;
 import org.sp.worktalk.view.chat.Main;
 import org.sp.worktalk.view.chat.Page;
 
@@ -25,6 +26,7 @@ public class ScheduleHomePage extends Page{
 	
 	
 	Main main;
+	Employee emp;
 	
 	
 	public ScheduleHomePage(Main main) {
@@ -95,11 +97,14 @@ public class ScheduleHomePage extends Page{
 	
 
 	
-	public void showUser() {
+	public void showUser(Employee emp) {
+		this.emp=emp;
+		
 		//현재 접속한 유저의 부서 지급 이름 순서로 나열해야한다.
-		String deptname = main.employeeDTO.getDeptDTO().getDname();
-		String job = main.employeeDTO.getJob();
-		String name = main.employeeDTO.getName();
+		String deptname = emp.getDeptDTO().getDname();
+		String job = emp.getJob();
+		String name = emp.getName();
+		
 		la_name.setText(deptname+" "+job+" "+name);
 	}
 	

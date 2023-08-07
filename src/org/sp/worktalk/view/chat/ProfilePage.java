@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.sp.worktalk.domain.Employee;
+import org.sp.worktalk.util.ImageUtil;
+import org.sp.worktalk.view.schedule.ScheduleHomePage;
 
 public class ProfilePage extends Page{
 	Main main;
@@ -56,7 +58,8 @@ public class ProfilePage extends Page{
 		
 		la_team=new JLabel("회계1팀",JLabel.CENTER);
 		la_name=new JLabel("사원 최승아",JLabel.CENTER);
-		userImage=new ImageIcon("res/profile_w.png");
+		userImage=new ImageIcon(ImageUtil.getImage("res/profile_w.png", 50, 50));
+		
 		icon3=new JLabel(userImage);
 		la_empno=new JLabel("사원번호",JLabel.LEFT);
 		la_empnoInfo=new JLabel("230712",JLabel.RIGHT);
@@ -126,7 +129,7 @@ public class ProfilePage extends Page{
 			}
 		});
 
-		icon3.addMouseListener(new MouseAdapter() {
+		icon4.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				new ChatRoomPage();
 			}
@@ -134,6 +137,11 @@ public class ProfilePage extends Page{
 		
 		icon5.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
+				
+				//현재 내가 보유한 DTO 를 스케줄 페이지에 전달 
+				ScheduleHomePage scheduleHomePage=(ScheduleHomePage)main.pages[Main.SCHEDULE];
+				scheduleHomePage.showUser(emp);
+				
 				main.showHide(main.SCHEDULE);
 			}
 		});
