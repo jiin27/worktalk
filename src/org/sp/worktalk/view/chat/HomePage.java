@@ -23,11 +23,7 @@ import org.sp.worktalk.domain.Employee;
 import org.sp.worktalk.model.DeptDAO;
 import org.sp.worktalk.model.EmployeeDAO;
 import org.sp.worktalk.util.DBManager;
-<<<<<<< HEAD
 import org.sp.worktalk.util.ImageUtil;
-=======
-import org.sp.worktalk.view.schedule.ScheduleAddPage;
->>>>>>> upstream/0801
 import org.sp.worktalk.view.schedule.ScheduleHomePage;
 
 public class HomePage extends Page{
