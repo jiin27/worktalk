@@ -23,7 +23,11 @@ import org.sp.worktalk.domain.Employee;
 import org.sp.worktalk.model.DeptDAO;
 import org.sp.worktalk.model.EmployeeDAO;
 import org.sp.worktalk.util.DBManager;
+<<<<<<< HEAD
+import org.sp.worktalk.util.ImageUtil;
+=======
 import org.sp.worktalk.view.schedule.ScheduleAddPage;
+>>>>>>> upstream/0801
 import org.sp.worktalk.view.schedule.ScheduleHomePage;
 
 public class HomePage extends Page{
@@ -46,13 +50,6 @@ public class HomePage extends Page{
 	DeptDAO deptDAO;
 	Dept deptDTO;
 	
-	
-	
-
-
-	
-	
-
 	
 	public HomePage(Main main) {
 		this.main = main;
@@ -136,9 +133,9 @@ public class HomePage extends Page{
 				main.showHide(main.SCHEDULE);
 				//메인의 페이지스 중에 스케줄 페이지의 showUser()
 				ScheduleHomePage scheduleHomePage=(ScheduleHomePage)main.pages[Main.SCHEDULE];
-				ScheduleAddPage scheduleAddPage=(ScheduleAddPage)main.pages[Main.SCHEDULEADD];
-				scheduleHomePage.showUser();
-				scheduleAddPage.showUser();
+
+				scheduleHomePage.showUser(main.employeeDTO);
+
 			}
 		});
 		
@@ -154,21 +151,8 @@ public class HomePage extends Page{
 	}
 
 	
-	public void createIcon() {
-		try {
-			BufferedImage buffImg = ImageIO.read(new File("res/search.png"));
-			Image image = buffImg;
-			image = image.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-			la_search = new JLabel(new ImageIcon(image));
-			//그외 아이콘들 추가로 만들면 됨
-			
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
+	public void createIcon() {		
+		la_search = new JLabel(new ImageIcon(ImageUtil.getImage("res/search.png", 30, 30)));
 	}
 	
 	

@@ -6,7 +6,11 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
+<<<<<<< HEAD
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/worktalk lib"/>
+=======
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/worktalk_fork1"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/worktalk lib0807"/>
+>>>>>>> upstream/0801
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -10,6 +10,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.sp.worktalk.domain.Employee;
+import org.sp.worktalk.util.ImageUtil;
+import org.sp.worktalk.view.schedule.ScheduleHomePage;
+
 public class ProfilePage extends Page{
 	Main main;
 	JPanel p_main;
@@ -39,6 +43,9 @@ public class ProfilePage extends Page{
 	JPanel p_north;
 	JPanel p_center;
 	JPanel p_south;
+	Employee emp;
+	
+	ChatRoomPage chatRoomPage;
 	
 	public ProfilePage(Main main) {
 		this.main = main;
@@ -51,18 +58,19 @@ public class ProfilePage extends Page{
 		
 		la_team=new JLabel("회계1팀",JLabel.CENTER);
 		la_name=new JLabel("사원 최승아",JLabel.CENTER);
-		userImage=new ImageIcon("res/profile_w.png");
+		userImage=new ImageIcon(ImageUtil.getImage("res/profile_w.png", 50, 50));
+		
 		icon3=new JLabel(userImage);
 		la_empno=new JLabel("사원번호",JLabel.LEFT);
 		la_empnoInfo=new JLabel("230712",JLabel.RIGHT);
 		la_email=new JLabel("이메일",JLabel.CENTER);
 		la_emailInfo=new JLabel("dunkin14@sp.or.kr",JLabel.RIGHT);
 		
-		chat=new ImageIcon("res/talk.png");
+		chat=new ImageIcon(ImageUtil.getImage("res/talk.png", 50, 50));
 		icon4=new JLabel(chat);
-		schedule=new ImageIcon("res/calendar.png");
+		schedule=new ImageIcon(ImageUtil.getImage("res/calendar.png", 50, 50));
 		icon5=new JLabel(schedule);
-		password=new ImageIcon("res/lock.png"); 
+		password=new ImageIcon(ImageUtil.getImage("res/lock.png", 50, 50)); 
 		icon6=new JLabel(password);
 		
 		p_north=new JPanel();
@@ -115,27 +123,45 @@ public class ProfilePage extends Page{
 		p_main.add(p_south,BorderLayout.SOUTH);
 	
 		
-		
+		icon1.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				main.showHide(main.HOME);
+			}
+		});
 
+		icon4.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				new ChatRoomPage();
+			}
+		});
+		
+		icon5.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				
+				//현재 내가 보유한 DTO 를 스케줄 페이지에 전달 
+				ScheduleHomePage scheduleHomePage=(ScheduleHomePage)main.pages[Main.SCHEDULE];
+				scheduleHomePage.showUser(emp);
+				
+				main.showHide(main.SCHEDULE);
+			}
+		});
+		
 		icon6.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				main.showHide(main.CHANGEPASS);
 			}
 		});
-		
-		
-		
-
-		
 		this.add(p_main);
 		this.setSize(300,450);
-
-
-		
-		
-
-		
 	}
 	
+	//화면에 1사원의 정보 출력 
+	public void printInfo() {
+		la_team.setText(emp.getDeptDTO().getDname());
+		la_name.setText(emp.getName());
+		la_empno.setText(emp.getJob());
+		la_empnoInfo.setText(Integer.toString(emp.getEmpno()));
+		la_emailInfo.setText(emp.getEmail());
+	}
 
 }
