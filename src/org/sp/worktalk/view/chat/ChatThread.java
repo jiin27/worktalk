@@ -7,16 +7,16 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 
+//클라이언트, chatroompage용 쓰레드
 public class ChatThread extends Thread{
 	ChatRoomPage chatRoomPage;
-	
 	Socket socket;
 	BufferedReader buffr;
 	BufferedWriter buffw;
 	
 	public ChatThread(ChatRoomPage chatRoomPage) {
 		this.chatRoomPage=chatRoomPage;
-		socket=chatRoomPage.socket; //클라이언트 소켓 넘겨받기
+		socket=chatRoomPage.socket; //클라이언트의 소켓 넘겨받기
 		
 		try {
 			buffr=new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -27,16 +27,19 @@ public class ChatThread extends Thread{
 	}
 	
 	public void listen() {
+		String msg=null;
 		try {
-			String msg=buffr.readLine(); //서버로부터 메시지 받기
+			msg=buffr.readLine(); //서버로부터 메시지 받아서
+			chatRoomPage.area.append(msg+"\n"); //화면에 뿌리기
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void sendMsg(String msg) {
+	public void sendMsg(String client_msg) {
 		try {
-			buffw.write(msg+"\n");
+			
+			buffw.write(client_msg+"\n");
 			buffw.flush();
 		} catch (IOException e) {
 			e.printStackTrace();

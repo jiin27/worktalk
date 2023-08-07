@@ -46,14 +46,15 @@ public class ProfilePage extends Page{
 	Employee emp;
 	
 	ChatRoomPage chatRoomPage;
+
 	
 	public ProfilePage(Main main) {
 		this.main = main;
 		p_main=new JPanel();
-		la_exit=new ImageIcon("res/back.png");
+		la_exit=new ImageIcon(ImageUtil.getImage("res/back.png", 25,25));
 		icon1=new JLabel(la_exit);
 		la_title=new JLabel("송파여성인력개발센터");
-		la_status=new ImageIcon("res/play.png");
+		la_status=new ImageIcon(ImageUtil.getImage("res/play.png", 25, 25));
 		icon2=new JLabel(la_status);
 		
 		la_team=new JLabel("회계1팀",JLabel.CENTER);
@@ -77,14 +78,11 @@ public class ProfilePage extends Page{
 		p_center=new JPanel();
 		p_south=new JPanel();
 		
-		
 		p_main.setPreferredSize(new Dimension(300,450));
 		p_north.setPreferredSize(new Dimension(270,50));
 		p_center.setPreferredSize(new Dimension(270,250));
 		p_south.setPreferredSize(new Dimension(270,100));
-		
-
-		
+			
 		la_team.setPreferredSize(new Dimension(270,20));
 		la_name.setPreferredSize(new Dimension(270,20));
 		icon3.setPreferredSize(new Dimension(270,100));
@@ -121,7 +119,6 @@ public class ProfilePage extends Page{
 		p_main.add(p_north,BorderLayout.NORTH);
 		p_main.add(p_center,BorderLayout.CENTER);
 		p_main.add(p_south,BorderLayout.SOUTH);
-	
 		
 		icon1.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -132,6 +129,7 @@ public class ProfilePage extends Page{
 		icon4.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				new ChatRoomPage();
+				//chatRoomPage.connect();
 			}
 		});
 		

@@ -16,7 +16,7 @@ public class ChatroomDAO {
 		this.dbManager = dbManager;
 	}
 	
-	//채팅이 시작되면, 생성된 채팅방 idx생성, 채팅방 이름은 접속자의 '사원이름'넣기, 마지막 메시지 들어가기(lastindex?)
+	//채팅이 시작되면, 생성된 채팅방 idx생성, 채팅방 이름은 접속자의 '사원이름'넣기,
 	public int insert(Chatroom chatroom) {
 		Connection con=null;
 		PreparedStatement pstmt=null;

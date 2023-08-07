@@ -10,8 +10,6 @@ public class Plan {
 	
 	private Schedule scheduleDTO;
 
-	
-	
 	public int getPlan_idx() {
 		return plan_idx;
 	}

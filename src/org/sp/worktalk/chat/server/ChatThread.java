@@ -32,8 +32,9 @@ public class ChatThread extends Thread{
 	
 	//클라이언트로부터 데이터 수신
 	public void listen() {
+		String msg=null;
 		try {
-			String msg = buffr.readLine(); //msg듣기
+			msg = buffr.readLine(); //msg듣기
 			
 			//접속한 사용자마다 1:1 대응되는 chatThread 객체의 msg전송 메서드 호출
 			for(int i=0; i<chatServer.vec.size(); i++) {
@@ -42,7 +43,7 @@ public class ChatThread extends Thread{
 			}
 			
 			//chatServer에 채팅 로그 남기기
-			chatServer.chatLogArea.append(msg+"\n");
+			chatServer.chatServerArea.append(msg+"\n");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -56,6 +57,10 @@ public class ChatThread extends Thread{
 			buffw.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
+			loopFlag=false;
+			
+			chatServer.vec.remove(this);
+			chatServer.chatServerArea.append("접속자 수"+chatServer.vec.size()+"\n");
 		}
 	}
 	

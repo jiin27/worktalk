@@ -57,13 +57,12 @@ public class ChatServer extends JFrame{
 	JTextField t_port;
 	JButton bt;
 	
-	JTextArea chatLogArea;
+	JTextArea chatServerArea;
 	JScrollPane scroll;
 	
-	Thread chatThread;
+	Thread mainThread; //서버 프로그램 실행 쓰레드
 	
-	ServerSocket serverSocket;
-	Socket socket;
+	ServerSocket serverSocket; //접속자 감지용
 	
 	Vector<ChatThread> vec; //감지된 접속자마다 대응되는 쓰레드 담을 벡터
 	
@@ -71,8 +70,8 @@ public class ChatServer extends JFrame{
 		topPanel = new JPanel();
 		t_port = new JTextField("9999", 10);
 		bt = new JButton("서버 가동");
-		chatLogArea = new JTextArea();
-		scroll = new JScrollPane(chatLogArea);
+		chatServerArea = new JTextArea();
+		scroll = new JScrollPane(chatServerArea);
 		
 		topPanel.add(t_port);
 		topPanel.add(bt);
@@ -87,12 +86,12 @@ public class ChatServer extends JFrame{
 		
 		bt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				chatThread = new Thread() {
+				mainThread = new Thread() {
 					public void run() {
 						runServer();
 					}
 				};
-				chatThread.start();
+				mainThread.start();
 			}
 		});
 		
@@ -100,24 +99,25 @@ public class ChatServer extends JFrame{
 	
 	//클라이언트의 접속 허용, 대화 처리
 	public void runServer() {
-		int port = Integer.parseInt(t_port.getText());
 		
 		try {
 			//서버 소켓 생성
-			serverSocket = new ServerSocket(port);
-			chatLogArea.append("서버 생성 완료\n");
+			serverSocket = new ServerSocket(9999);
+			chatServerArea.append("서버 생성 완료\n");
 			
 			while(true) {
 				//접속자 연결 대기
-				socket = serverSocket.accept();
+				Socket socket = serverSocket.accept();
 				String ip=socket.getInetAddress().getHostAddress();
-				//chatLogArea.append(ip에 해당하는 계정 이름+"접속\n");
+				chatServerArea.append(ip+"접속\n");
 				
-				//접속자 감지되면, 대화용 쓰레드 생성! 그리고 socket 넘기기
+				//접속자 감지되면, 대화용 쓰레드 생성하고 socket 넘기기
 				ChatThread cht=new ChatThread(this, socket);
 				cht.start(); //채팅 쓰레드 수행 start
 				
 				vec.add(cht); //채팅 쓰레드 벡터에 담기
+				
+				System.out.println(vec.size());
 			}
 			
 		} catch (IOException e) {
