@@ -37,7 +37,6 @@ Server
 public class ChatServer extends JFrame{
 	JPanel topPanel;
 	JTextField t_port;
-	JButton bt;
 	
 	JTextArea chatServerArea;
 	JScrollPane scroll;
@@ -52,16 +51,15 @@ public class ChatServer extends JFrame{
 	EmployeeDAO empDAO;
 	
 	public ChatServer() {
-		topPanel = new JPanel();
-		t_port = new JTextField("9999", 10);
-		bt = new JButton("서버 가동");
-		chatServerArea = new JTextArea();
-		scroll = new JScrollPane(chatServerArea);
 		dbManager = new DBManager();
 		empDAO = new EmployeeDAO(dbManager);
 		
+		topPanel = new JPanel();
+		t_port = new JTextField("9999", 7);
 		topPanel.add(t_port);
-		topPanel.add(bt);
+		
+		chatServerArea = new JTextArea();
+		scroll = new JScrollPane(chatServerArea);
 		
 		setLayout(new BorderLayout());
 		add(topPanel, BorderLayout.NORTH);
@@ -71,16 +69,16 @@ public class ChatServer extends JFrame{
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		bt.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				mainThread = new Thread() {
-					public void run() {
-						runServer();
-					}
-				};
-				mainThread.start();
+		mainThread = new Thread() {
+			public void run() {
+				runServer();
 			}
-		});
+		};
+		mainThread.start();
+//		bt.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//			}
+//		});
 		
 	}
 	

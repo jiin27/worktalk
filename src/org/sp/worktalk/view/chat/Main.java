@@ -38,7 +38,7 @@ public class Main extends JFrame{
 		
 		
 		for(int i=0;i<pages.length;i++) {
-			System.out.println("i="+i+"번째 "+pages[i]);
+			//System.out.println("i="+i+"번째 "+pages[i]);
 			this.add(pages[i]);
 		
 		}

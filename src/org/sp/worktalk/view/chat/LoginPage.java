@@ -130,7 +130,6 @@ public class LoginPage extends Page {
 		
 		
 		bt_login.addMouseListener(new MouseAdapter() {
-			@Override
 			public void mouseClicked(MouseEvent e) {
 				loginCheck();
 				
@@ -187,7 +186,7 @@ public class LoginPage extends Page {
 			ProfilePage profilePage=(ProfilePage)main.pages[Main.PROFILE];
 			
 			
-			//로그인함 과 동시에 접소한 자의 정보를 서버에 보냄
+			//로그인함 과 동시에 접속한 자의 정보를 서버에 보냄
 			StringBuilder sb = new StringBuilder();
 
 			sb.append("{");

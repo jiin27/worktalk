@@ -65,7 +65,7 @@ public class HomePage extends Page{
 		naviList = new ArrayList<JPanel>();
 		
 		dbManager = new DBManager();
-		employeeDAO = new EmployeeDAO(dbManager, main);
+		employeeDAO = new EmployeeDAO(dbManager);
 		deptDAO = new DeptDAO(dbManager);
 		
 		
