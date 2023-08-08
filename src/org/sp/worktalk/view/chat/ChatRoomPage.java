@@ -72,12 +72,10 @@ public class ChatRoomPage extends JFrame{
 	JLabel la_img;
 	JPanel p_msgInput_minus;
 	boolean flag = false;
-	JButton bt;
 	
 	Socket socket;
 	ChatThread cht;
 	
-	ChatServer chatServer;
 	
 	int port=9999;
 	String ip="192.168.1.221";
@@ -155,17 +153,15 @@ public class ChatRoomPage extends JFrame{
 		p_content.setBackground(new Color(197, 224, 180));
 		p_content.add(p_top, BorderLayout.NORTH);
 		p_content.add(area);
-		bt=new JButton("접속");
 		
 		p_main.add(p_content);
-		p_main.add(bt);
 		
 		setSize(300, 500);
 		setLayout(new BorderLayout());
 		add(p_main);
 		//add(p_sending, BorderLayout.SOUTH);
 		add(p_msgInput, BorderLayout.SOUTH);
-		setVisible(false);
+		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		la_back.addMouseListener(new MouseAdapter() {
@@ -195,11 +191,6 @@ public class ChatRoomPage extends JFrame{
 			}
 		});
 		
-		bt.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
 	}	
 	
 	public void send() {
@@ -210,10 +201,10 @@ public class ChatRoomPage extends JFrame{
 		sb.append("{");
 		sb.append("\"requestType\":\"msg\",");
 		sb.append("\"empno\":"+Main.employeeDTO.getEmpno()+",");
-		sb.append("\"data\":\""+client_msg+"\"	");	
+		sb.append("\"data\":\""+client_msg+"\"");	
 		sb.append("}");		
 		
-		cht.sendMsg(client_msg);
+		Main.ct.sendMsg(sb.toString());
 		
 		t_input.setText("");
 	}

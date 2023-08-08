@@ -6,6 +6,8 @@ import java.awt.FlowLayout;
 import javax.swing.JFrame;
 
 import org.sp.worktalk.domain.Employee;
+import org.sp.worktalk.model.EmployeeDAO;
+import org.sp.worktalk.util.DBManager;
 import org.sp.worktalk.view.schedule.ScheduleAddPage;
 import org.sp.worktalk.view.schedule.ScheduleHomePage;
 
@@ -19,9 +21,11 @@ public class Main extends JFrame{
 	public static final int PROFILE = 5;
 	
 	
+	public static DBManager dbManager=new DBManager();
 	public static Employee employeeDTO; //처음에는 널이지만 로그인 후에는 계속 접속한 한명의  유저의 정보만 담고있다
+	public static EmployeeDAO empDAO=new EmployeeDAO(dbManager);
 	
-	
+	public static ChatThread ct; //클라이언트 창 마다 1:1 대응하는 대화용 쓰레드 
 	
 	public Main() {
 		

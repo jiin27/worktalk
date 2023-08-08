@@ -27,9 +27,11 @@ public class RoommateDAO {
 		try {
 			sb.append("insert into room_mate(room_mate_idx, chatroom_idx, empno)");
 			sb.append(" values(seq_room_mate.nextval, ?, ?)");
+			pstmt=con.prepareStatement(sb.toString());
+			pstmt.setInt(1, roommate.getChatroom().getChatroom_idx());
+			pstmt.setInt(2, roommate.getEmployee().getEmpno());
 			
-			pstmt.setInt(1, roommate.getChatroom_idx());
-			pstmt.setInt(2, roommate.getEmpno());
+			result=pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -51,11 +53,14 @@ public class RoommateDAO {
 			
 			//select r.room_mate_idx, e.empno from room_mate_idx r, employee e where r.empno=e.empno;
 			StringBuilder sb=new StringBuilder();
-			sb.append("select r.room_mate_idx, e.empno from room_mate r, employee e where r.empno=e.empno");
 			
+			sb.append("select r.room_mate_idx, e.empno"); 
+			sb.append("from room_mate r, employee e"); 
+			sb.append("where r.empno=e.empno");
+			sb.append("and e.empno=?");			
 			
 			pstmt=con.prepareStatement(sb.toString());
-			pstmt.setInt(1, roommate.getEmpno());
+			pstmt.setInt(1, roommate.getEmployee().getEmpno());
 			
 			rs=pstmt.executeQuery();
 			

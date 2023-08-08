@@ -5,12 +5,20 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.sp.worktalk.domain.Chatroom;
 import org.sp.worktalk.domain.Employee;
+import org.sp.worktalk.domain.Roommate;
+import org.sp.worktalk.model.ChatroomDAO;
+import org.sp.worktalk.model.RoommateDAO;
+import org.sp.worktalk.util.DBManager;
 import org.sp.worktalk.util.ImageUtil;
 import org.sp.worktalk.view.schedule.ScheduleHomePage;
 
@@ -43,11 +51,21 @@ public class ProfilePage extends Page{
 	JPanel p_north;
 	JPanel p_center;
 	JPanel p_south;
-	Employee emp;
+	Employee emp; //현재 회원의 프로필 정보  
 	
 	ChatRoomPage chatRoomPage;
-
 	
+	ChatroomDAO chatroomDAO;
+	Chatroom chatroom;
+	RoommateDAO mateDAO;
+	
+	
+	//서버 접속용 소켓
+	String ip="192.168.1.221";
+	int port=9999;
+	Socket socket;
+	
+		
 	public ProfilePage(Main main) {
 		this.main = main;
 		p_main=new JPanel();
@@ -97,8 +115,6 @@ public class ProfilePage extends Page{
 		p_center.setBackground(new Color(226,240,217));
 		p_south.setBackground(new Color(226,240,217));
 		
-		
-		
 		p_north.add(icon1);
 		p_north.add(la_title);
 		p_north.add(icon2);
@@ -120,6 +136,10 @@ public class ProfilePage extends Page{
 		p_main.add(p_center,BorderLayout.CENTER);
 		p_main.add(p_south,BorderLayout.SOUTH);
 		
+		chatroomDAO = new ChatroomDAO(Main.dbManager);
+		mateDAO = new RoommateDAO(Main.dbManager);
+		
+		
 		icon1.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				main.showHide(main.HOME);
@@ -128,8 +148,30 @@ public class ProfilePage extends Page{
 
 		icon4.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				new ChatRoomPage();
-				//chatRoomPage.connect();
+				
+				chatRoomPage=new ChatRoomPage();
+				
+				connect();
+				
+				
+				//1) 룸생성 
+				Chatroom chatroom = new Chatroom();
+				chatroom.setChatroom_name(emp.getName()+"과의 대화");
+				
+				chatroomDAO.insert(chatroom);
+				
+				//2) 룸메이트 등록
+				Roommate mate=null;
+				
+				mate = new Roommate();
+				mate.setChatroom(chatroom);
+				mate.setEmployee(emp);
+				mateDAO.insert(mate); //친구 
+				
+				mate.setEmployee(Main.employeeDTO);
+				mateDAO.insert(mate);//나
+				
+				
 			}
 		});
 		
@@ -162,4 +204,42 @@ public class ProfilePage extends Page{
 		la_emailInfo.setText(emp.getEmail());
 	}
 
+	/*----------------------------------------------------
+	  서버에 접속 
+	 ----------------------------------------------------*/
+	public void connect() {
+		try {
+			socket = new Socket(ip, port);
+			
+			Main.ct = new ChatThread(chatRoomPage, socket);
+			Main.ct.start(); //대화용 쓰레드 시작 
+			
+			//대화를 나눌 친구 가져오기 
+			ProfilePage profilePage=(ProfilePage)main.pages[Main.PROFILE];
+			
+			
+			//로그인함 과 동시에 접속한 자의 정보를 서버에 보냄
+			StringBuilder sb = new StringBuilder();
+
+			sb.append("{");
+			sb.append("\"requestType\":\"login\",");
+			sb.append("\"me\":"+Main.employeeDTO.getEmpno()+",");
+			sb.append("\"roommate\":["); //친구명단 
+			sb.append("{");
+			sb.append("\"empno\":"+Main.employeeDTO.getEmpno()); //나
+			sb.append("},");
+			sb.append("{");
+			sb.append("\"empno\":"+emp.getEmpno()); //친구 
+			sb.append("}");
+			sb.append("]");		
+			sb.append("}");			
+			
+			Main.ct.sendMsg(sb.toString());
+			
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}	
 }

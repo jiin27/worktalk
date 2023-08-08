@@ -45,7 +45,7 @@ public class ChatServer extends JFrame{
 	
 	ServerSocket serverSocket; //접속자 감지용
 	
-	Vector<ChatThread> vec; //감지된 접속자마다 대응되는 쓰레드 담을 벡터
+	Vector<ChatThread> vec=new Vector<ChatThread>(); //감지된 접속자마다 대응되는 쓰레드 담을 벡터
 	
 	DBManager dbManager;
 	EmployeeDAO empDAO;

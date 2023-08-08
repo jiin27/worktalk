@@ -20,6 +20,7 @@ public class ChatroomDAO {
 	public int insert(Chatroom chatroom) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
+		ResultSet rs=null;
 		int result=0;
 		
 		con=dbManager.connect();
@@ -35,6 +36,16 @@ public class ChatroomDAO {
 			pstmt.setString(2, chatroom.getLastmessage());
 			
 			result=pstmt.executeUpdate();
+			if(result >0) {
+				sb.delete(0, sb.length()); //기존의 sb 내용물 삭제 
+				
+				sb.append("select seq_chatroom.currval as chatroom_idx from dual");
+				pstmt=con.prepareStatement(sb.toString());
+				rs=pstmt.executeQuery();
+				if(rs.next()) {
+					chatroom.setChatroom_idx(rs.getInt("chatroom_idx"));
+				}
+			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -53,7 +64,7 @@ public class ChatroomDAO {
 		
 		con=dbManager.connect();
 		
-		//String sql="select * from where chatroom_idx=?"; chat
+		
 	}
 }
 

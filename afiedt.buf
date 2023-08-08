@@ -1,0 +1,2 @@
+select r.room_mate_idx, e.empno from room_mate r, employee e where r.empno=e.empno
+/

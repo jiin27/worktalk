@@ -13,6 +13,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.sp.worktalk.domain.Employee;
+import org.sp.worktalk.view.chat.Main;
 
 //서버에 접속하는 각각의 클라이언트마다 1:1 대응하는 대화 전용 쓰레드 정의
 public class ChatThread extends Thread{
@@ -25,7 +26,7 @@ public class ChatThread extends Thread{
 	JSONParser jsonParser;
 	Employee employee; //채팅 중인 나에 대한 정보 
 	
-	Vector<ChatThread> friendList=new Vector<ChatThread>();
+	Vector<Integer> friendList=new Vector<Integer>();
 	
 	
 	public ChatThread(ChatServer chatServer, Socket socket) {
@@ -47,6 +48,7 @@ public class ChatThread extends Thread{
 		String msg=null;
 		try {
 			msg = buffr.readLine(); //msg듣기
+			System.out.println("서버에 도착된 메시지:"+msg);
 			
 			//클라이어트가 보낸 요청 타입에 따라 적절한 업무 처리 
 			////대화 : msg , 이모티콘 : emoti, 로그이정보: "login", 파일:"file"
@@ -85,26 +87,22 @@ public class ChatThread extends Thread{
 	public void getEmp(JSONObject json) {
 		//기존 명단 지우고 다시 작성
 		friendList.remove(friendList);
-		int me=(Integer)json.get("me");
-		JSONArray jsonArray=(JSONArray)json.get("roommate");
 		
-		for(int i=0;i<jsonArray.size();i++) {
-			JSONObject emp=(JSONObject)jsonArray.get(i);
-			int empno = (Integer)emp.get("empno");
-			
-			//친구목록에 나의 정보가 포함되어 잇따면, 나만 회원정보 보관 
-			if(me==empno) {
-				employee=chatServer.empDAO.select(empno);
-			}
-			
+		//클라이언트가 보낸 사원의 정보를  db에서 구해와서, 더 자세한 DTO로 보관
+		long me=(Long)json.get("me");
+		employee=chatServer.empDAO.select((int)me);
+		
+		//친구명단 구해서 벡터에 담기
+		JSONArray mateList=(JSONArray)json.get("roommate");
+		
+		//friendList.add((int)me);
+		for(int i=0;i<mateList.size();i++) {
+			JSONObject emp=(JSONObject)mateList.get(i);
+			long empno = (Long)emp.get("empno");
+
 			//모든 접속자 명단에서 , 현재 쓰레드가 존재하는지 판단 
 			//있다면, 대화 상대 명단에 추가 
-			for(int a=0; a<chatServer.vec.size();a++) {
-				ChatThread ct=chatServer.vec.get(a);
-				if(empno == ct.employee.getEmpno()) { //친구명단과 로그인 및 접속한 사람이 같다면...
-					friendList.add(ct);
-				}
-			}
+			friendList.add((int)empno);
 		}
 		System.out.println("현재 로그인한 유저의 친구 수는 "+friendList.size());
 	}
@@ -112,18 +110,30 @@ public class ChatThread extends Thread{
 
 	//친구를 대상으로 브로드 케스팅 
 	public void broadCast(JSONObject json) {
-		int empno=(Integer)json.get("empno");
+		long empno=(Long)json.get("empno");
 		String data=(String)json.get("data");
 		
-		//접속한 사용자마다 1:1 대응되는 chatThread 객체의 msg전송 메서드 호출
-		for(int i=0; i<friendList.size(); i++) {
-			ChatThread cht=friendList.get(i); //생성된 쓰레드 vec에서 i번째 쓰레드(에 해당하는 클라이언트)
-			cht.sendMsg(data); //수신받은 msg 클라이언트에게 다시 전송
+		//전체 접속자 명당과, 현재 쓰레드가 보유한 채팅메이트 명단 중 사원번호가 일치하는 것만 가져온다.
+		//만일, 채팅 메이트에는 존재하지만 전체 명단에 없다면 그 사람은 접속 안한 것이다..
+		for(int a=0;a<chatServer.vec.size();a++) { //전체 접속자명단
+			ChatThread ct=chatServer.vec.get(a);
+			for(int i=0; i<friendList.size(); i++) {//채팅메이트 명단
+				int friend_idx = friendList.get(i); //채팅메이트의 사원번호 꺼내기 
+				
+				if(friend_idx==ct.employee.getEmpno()) { //현재 접속한 상태임..
+					StringBuilder sb = new StringBuilder();
+					sb.append("{");
+					sb.append("\"requestType\":\"msg\",");
+					sb.append("\"empno\":"+employee.getEmpno()+",");
+					sb.append("\"data\":\""+data+"\"");	
+					sb.append("}");
+					
+					ct.sendMsg(sb.toString()); //수신받은 msg 클라이언트에게 다시 전송
+				}; 				
+			}			
 		}
-		
 		//chatServer에 채팅 로그 남기기
-		chatServer.chatServerArea.append(data+"\n");
-		
+		chatServer.chatServerArea.append(employee.getName()+"님의 말: "+data+"\n");
 	}
 	
 	
