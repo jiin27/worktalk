@@ -13,10 +13,11 @@ public class ChatThread extends Thread{
 	Socket socket;
 	BufferedReader buffr;
 	BufferedWriter buffw;
+	boolean loopFlag=true;
 	
-	public ChatThread(ChatRoomPage chatRoomPage) {
+	public ChatThread(ChatRoomPage chatRoomPage, Socket socket) {
+		this.socket=socket; //클라이언트의 소켓 넘겨받기
 		this.chatRoomPage=chatRoomPage;
-		socket=chatRoomPage.socket; //클라이언트의 소켓 넘겨받기
 		
 		try {
 			buffr=new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -47,7 +48,7 @@ public class ChatThread extends Thread{
 	}
 	
 	public void run() {
-		while(true) {
+		while(loopFlag) {
 			listen();
 		}
 	}

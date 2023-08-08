@@ -66,7 +66,7 @@ public class ChangePassPage extends Page {
 		
 		bt_passChage = new JButton("비밀번호 변경");
 		bt_back = new JButton("돌아가기");
-		employeeDAO = new EmployeeDAO(dbManager = new DBManager(), main);
+		employeeDAO = new EmployeeDAO(dbManager = new DBManager());
 		
 
 		

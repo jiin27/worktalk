@@ -165,7 +165,7 @@ public class ChatRoomPage extends JFrame{
 		add(p_main);
 		//add(p_sending, BorderLayout.SOUTH);
 		add(p_msgInput, BorderLayout.SOUTH);
-		setVisible(true);
+		setVisible(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		la_back.addMouseListener(new MouseAdapter() {
@@ -197,43 +197,26 @@ public class ChatRoomPage extends JFrame{
 		
 		bt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				connect();
+				
 			}
 		});
 	}	
 	
-	public void connect() {
-		//chatServer 포트 번호 가져오기
-		try {
-			socket = new Socket(ip, port);
-			
-			//채팅용 쓰레드 생성
-			cht = new ChatThread(this);
-			cht.start();
-			
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-	}
-	
 	public void send() {
 		String client_msg=t_input.getText();
+		//대화 프로토콜을 구성하여 보내기 
+		StringBuilder sb = new StringBuilder();
+
+		sb.append("{");
+		sb.append("\"requestType\":\"msg\",");
+		sb.append("\"empno\":"+Main.employeeDTO.getEmpno()+",");
+		sb.append("\"data\":\""+client_msg+"\"	");	
+		sb.append("}");		
 		
 		cht.sendMsg(client_msg);
 		
 		t_input.setText("");
 	}
-	
-//	public void createMSGLabel() {
-//		la_msg = new JLabel();
-//		la_msg.setText(t_input.getText());
-//	}
-	
-	public static void main(String[] args) {
-		new ChatRoomPage();
-	}
+
 	
 }

@@ -6,6 +6,9 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -43,8 +46,11 @@ public class LoginPage extends Page {
 	EmployeeDAO employeeDAO;
 	Employee employeeDTO;
 	
-	
-	
+	//서버 접속용 소켓
+	String ip="172.30.1.86";
+	int port=9999;
+	Socket socket;
+	ChatRoomPage chatRoomPage;
 	
 	public LoginPage(Main main) {
 		this.main = main;
@@ -62,7 +68,7 @@ public class LoginPage extends Page {
 		pass = new JPasswordField("230709");
 		bt_login = new JButton("Login");
 		dbManager = new DBManager();
-		employeeDAO = new EmployeeDAO(dbManager,main);
+		employeeDAO = new EmployeeDAO(dbManager);
 
 
 		
@@ -124,7 +130,6 @@ public class LoginPage extends Page {
 		
 		
 		bt_login.addMouseListener(new MouseAdapter() {
-			@Override
 			public void mouseClicked(MouseEvent e) {
 				loginCheck();
 				
@@ -148,18 +153,68 @@ public class LoginPage extends Page {
 		if(employeeDTO==null) {//로그인 실패
 			JOptionPane.showMessageDialog(this, "로그인 정보가 올바르지 않습니다");
 		}else {//로그인성공
+			
+			connect();
+			
 			JOptionPane.showMessageDialog(this, (employeeDTO.getName())+"님 환영합니다.");
 			//채팅홈창 띄우기
 			main.showHide(main.HOME);
-			main.employeeDTO=employeeDTO;
+			
+			main.employeeDTO=employeeDTO; //사원 정보를 보관한다
+			
 			HomePage homePage = (HomePage)main.pages[2];
+				
 			//홈화면에 내 정보 뿌리기
 			homePage.createMyPanel();
-			
-			
-			
 
 		}
 	}
+	
+	/*----------------------------------------------------
+	  서버에 접속 
+	 ----------------------------------------------------*/
+	public void connect() {
+		try {
+			socket = new Socket(ip, port);
+			chatRoomPage = new ChatRoomPage(); //채팅창을 탄생시키되, 대화는 하지 않으므로 눈에 않보이게 처리 
+			
+			ChatThread ct = new ChatThread(chatRoomPage, socket);
+			ct.start(); //대화용 쓰레드 시작 
+			
+			
+			//대화를 나눌 친구 가져오기 
+			ProfilePage profilePage=(ProfilePage)main.pages[Main.PROFILE];
+			
+			
+			//로그인함 과 동시에 접속한 자의 정보를 서버에 보냄
+			StringBuilder sb = new StringBuilder();
 
+			sb.append("{");
+			sb.append("\"requestType\":\"login\",");
+			sb.append("\"me\":"+employeeDTO.getEmpno()+",");
+			sb.append("\"roommate\":["); //친구명단 
+			sb.append("{");
+			sb.append("\"empno\":"+employeeDTO.getEmpno()); //나
+			sb.append("},");
+			sb.append("{");
+			sb.append("\"empno\":"+profilePage.emp.getEmpno()); //친구 
+			sb.append("}");
+			sb.append("]");		
+			sb.append("}");			
+			
+			ct.sendMsg(sb.toString());
+			
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
+
+
+
+
+
+
+
