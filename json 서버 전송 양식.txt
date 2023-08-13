@@ -1,0 +1,16 @@
+//대화 : msg , 이모티콘 : emoti, 로그이정보: "login", 파일:"file"
+StrinbBuilder sb = new StringBuilder();
+
+{
+	"reqeustType":"login",
+	"me":23,
+	"roommate":[
+		{
+			"empno":23
+		},
+		{
+			"empno":54
+		}
+	]
+		
+}

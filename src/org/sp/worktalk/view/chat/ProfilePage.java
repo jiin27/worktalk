@@ -128,8 +128,8 @@ public class ProfilePage extends Page{
 
 		icon4.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
+				chatRoomPage.setVisible(true);
 				new ChatRoomPage();
-				//chatRoomPage.connect();
 			}
 		});
 		

@@ -1,0 +1,15 @@
+//대화 : msg , 이모티콘 : emoti, 로그이정보: "login", 파일:"file"
+
+{
+	"requestType":"msg",
+	"empno":34,
+	"data":"배고파"		
+}
+
+StrinbBuilder sb = new StringBuilder();
+
+sb.append("{");
+sb.append("\"requestType\":\"msg\",");
+sb.append("\"empno\":34,");
+sb.append("\"data\":\"배고파\"	");	
+sb.append("}");

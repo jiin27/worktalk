@@ -165,7 +165,7 @@ public class ChatRoomPage extends JFrame{
 		add(p_main);
 		//add(p_sending, BorderLayout.SOUTH);
 		add(p_msgInput, BorderLayout.SOUTH);
-		setVisible(false);
+		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		la_back.addMouseListener(new MouseAdapter() {
@@ -218,5 +218,5 @@ public class ChatRoomPage extends JFrame{
 		t_input.setText("");
 	}
 
-	
+
 }

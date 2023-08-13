@@ -197,7 +197,7 @@ public class LoginPage extends Page {
 			sb.append("\"empno\":"+employeeDTO.getEmpno()); //나
 			sb.append("},");
 			sb.append("{");
-			sb.append("\"empno\":"+profilePage.emp.getEmpno()); //친구 
+			sb.append("\"empno\":"+profilePage.emp.getEmpno()); //친구
 			sb.append("}");
 			sb.append("]");		
 			sb.append("}");			

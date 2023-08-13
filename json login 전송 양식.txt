@@ -1,0 +1,14 @@
+StrinbBuilder sb = new StringBuilder();
+
+sb.append("{");
+sb.append("\"reqeustType\":\"login\",");
+sb.append("\"roommate\":[");
+sb.append("{");
+sb.append("\"me\":23");
+sb.append("},");
+sb.append("{");
+sb.append("\"you\":23");
+sb.append("}");
+sb.append("]");		
+sb.append("}");
+
