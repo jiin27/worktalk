@@ -78,10 +78,11 @@ public class ChatRoomPage extends JFrame{
 	
 	
 	int port=9999;
-	String ip="192.168.1.221";
+	String ip="192.168.0.229";
+	
 	
 	public ChatRoomPage() {
-	
+		
 		p_main = new JPanel();
 						
 		//라벨에 아이콘이미지 붙이기

@@ -60,8 +60,8 @@ public class LoginPage extends Page {
 		la_comname = new JLabel("           송파여성인력개발센터"); //가운데 정렬몰라서 공간으로 일단 꼼수
 		la_id = new JLabel("ID");
 		la_pass = new JLabel("PW");
-		txt_id = new JTextField("hes230709@songpawoman.com");
-		pass = new JPasswordField("230709");
+		txt_id = new JTextField("pji230704@songpawoman.com");
+		pass = new JPasswordField("230704");
 		bt_login = new JButton("Login");
 		dbManager = new DBManager();
 		employeeDAO = new EmployeeDAO(dbManager);

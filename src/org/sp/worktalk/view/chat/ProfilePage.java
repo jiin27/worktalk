@@ -61,7 +61,7 @@ public class ProfilePage extends Page{
 	
 	
 	//서버 접속용 소켓
-	String ip="192.168.1.221";
+	String ip="192.168.0.229";
 	int port=9999;
 	Socket socket;
 	
